@@ -67,33 +67,40 @@ export function EditableArticleComments({ slug, comments = [] }: { slug: string;
   const all = useMemo(() => [...stored, ...comments], [stored, comments])
 
   return (
-    <section className="mt-14 border-t border-[var(--tk-line)] pt-10">
-      <div className="flex items-center gap-2 text-lg font-semibold">
-        <MessageCircle className="h-5 w-5 text-[var(--tk-accent)]" /> Comments
-        <span className="text-[var(--tk-muted)]">({all.length})</span>
+    <section className="mt-16 border-t border-[var(--tk-line)] pt-12">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <span className="gr-kicker text-[var(--tk-accent)]">Join the conversation</span>
+          <h2 className="gr-display mt-3 flex items-center gap-3 text-[1.75rem] font-semibold tracking-[-0.02em]">
+            <MessageCircle className="h-5 w-5 text-[var(--tk-accent)]" />
+            Comments
+            <span className="text-[1.1rem] font-normal text-[var(--tk-muted)]">({all.length})</span>
+          </h2>
+        </div>
       </div>
 
-      <form onSubmit={submit} className="mt-6 rounded-[var(--tk-radius)] border border-[var(--tk-line)] bg-[var(--tk-surface)] p-5">
+      <form onSubmit={submit} className="mt-7 rounded-[var(--tk-radius)] border border-[var(--tk-line)] bg-[var(--tk-raised)] p-5 sm:p-6">
         <input
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="Your name (optional)"
           maxLength={60}
-          className="h-11 w-full rounded-lg border border-[var(--tk-line)] bg-[var(--tk-bg)] px-4 text-sm text-[var(--tk-text)] outline-none transition focus:border-[var(--tk-accent)]"
+          className="h-12 w-full rounded-full border border-[var(--tk-line)] bg-[var(--tk-surface)] px-5 text-sm text-[var(--tk-text)] outline-none transition focus:border-[var(--tk-accent)]"
         />
         <textarea
           value={text}
           onChange={(event) => setText(event.target.value)}
-          placeholder="Share your thoughts…"
-          rows={3}
+          placeholder="Add your thoughts…"
+          rows={4}
           maxLength={1500}
-          className="mt-3 w-full resize-y rounded-lg border border-[var(--tk-line)] bg-[var(--tk-bg)] px-4 py-3 text-sm leading-6 text-[var(--tk-text)] outline-none transition focus:border-[var(--tk-accent)]"
+          className="mt-3 w-full resize-y rounded-[1.1rem] border border-[var(--tk-line)] bg-[var(--tk-surface)] px-5 py-4 text-sm leading-7 text-[var(--tk-text)] outline-none transition focus:border-[var(--tk-accent)]"
         />
-        <div className="mt-3 flex justify-end">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <p className="text-[12px] text-[var(--tk-muted)]">Comments are kept in this browser.</p>
           <button
             type="submit"
             disabled={!text.trim()}
-            className="inline-flex items-center gap-2 rounded-lg bg-[var(--tk-accent)] px-6 py-2.5 text-sm font-bold text-[var(--tk-on-accent)] transition hover:brightness-95 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--tk-accent)] px-6 py-3 text-[13px] font-semibold text-[var(--tk-on-accent)] transition hover:brightness-105 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45"
           >
             <Send className="h-4 w-4" /> Post comment
           </button>
@@ -102,20 +109,24 @@ export function EditableArticleComments({ slug, comments = [] }: { slug: string;
 
       <div className="mt-6 grid gap-3">
         {all.map((comment) => (
-          <div key={comment.id} className="rounded-[var(--tk-radius)] border border-[var(--tk-line)] bg-[var(--tk-surface)] p-5">
+          <article key={comment.id} className="rounded-[var(--tk-radius)] border border-[var(--tk-line)] bg-[var(--tk-surface)] p-5 transition hover:border-[var(--tk-accent)]">
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--tk-accent-soft)] text-sm font-bold text-[var(--tk-accent)]">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--tk-accent-soft)] text-sm font-semibold text-[var(--tk-accent)]">
                 {initial(comment.name)}
               </span>
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-[var(--tk-text)]">{comment.name || 'Guest'}</p>
-                {comment.createdAt ? <p className="text-xs text-[var(--tk-muted)]">{timeAgo(comment.createdAt)}</p> : null}
+                {comment.createdAt ? <p className="text-[12px] text-[var(--tk-muted)]">{timeAgo(comment.createdAt)}</p> : null}
               </div>
             </div>
-            <p className="mt-3 whitespace-pre-line text-sm leading-6 text-[var(--tk-text)]">{comment.comment}</p>
-          </div>
+            <p className="gr-break mt-4 whitespace-pre-line text-[14.5px] leading-7 text-[var(--tk-text)]">{comment.comment}</p>
+          </article>
         ))}
-        {!all.length ? <p className="text-sm text-[var(--tk-muted)]">Be the first to comment.</p> : null}
+        {!all.length ? (
+          <p className="rounded-[var(--tk-radius)] border border-dashed border-[var(--tk-line)] px-5 py-8 text-center text-sm text-[var(--tk-muted)]">
+            No comments yet — be the first to add one.
+          </p>
+        ) : null}
       </div>
     </section>
   )
