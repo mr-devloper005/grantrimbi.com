@@ -3,34 +3,48 @@ import { slot4BrandConfig } from '@/editable/theme/brand.config'
 export const globalContent = {
   site: {
     name: slot4BrandConfig.siteName,
-    tagline: slot4BrandConfig.tagline || 'Independent reading platform',
+    tagline: slot4BrandConfig.tagline || 'Listings and profiles, considered',
     domain: slot4BrandConfig.domain,
     baseUrl: slot4BrandConfig.baseUrl,
   },
   nav: {
-    tagline: 'Independent reading platform',
+    tagline: 'Listings & profiles',
     primaryLinks: [
-      { label: 'Articles', href: '/articles' },
-      { label: 'Visuals', href: '/image-sharing' },
-      { label: 'Listings', href: '/listings' },
+      { label: 'Classifieds', href: '/classified' },
+      { label: 'Search', href: '/search' },
+      { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
     ],
     actions: {
-      primary: { label: 'Start exploring', href: '/' },
-      secondary: { label: 'Submit', href: '/contact' },
+      primary: { label: 'Member area', href: '/login' },
+      secondary: { label: 'Post a notice', href: '/create' },
     },
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
-    description: 'A connected publishing surface for articles, visuals, listings, profiles, bookmarks, and downloadable resources.',
+    tagline: 'A calmer place to browse listings and people',
+    description:
+      'A considered directory of current notices and the people behind them — arranged to be read slowly, searched quickly, and returned to often.',
+    /* Value strip rendered above the footer columns. */
+    promises: [
+      {
+        title: 'Kept current',
+        body: 'Notices and profiles refresh as new entries are published, so the front page always reflects today.',
+      },
+      {
+        title: 'Easy to navigate',
+        body: 'Clear categories, an honest search, and pages that load quickly on whatever you are holding.',
+      },
+      {
+        title: 'Built to be read',
+        body: 'Generous type, real photography and layouts that put the entry itself ahead of the decoration.',
+      },
+    ],
     columns: [
       {
-        title: 'Explore',
+        title: 'Browse',
         links: [
-          { label: 'Articles', href: '/articles' },
-          { label: 'Listings', href: '/listings' },
-          { label: 'Images', href: '/image-sharing' },
-          { label: 'PDF Library', href: '/pdf' },
+          { label: 'Classifieds', href: '/classified' },
+          { label: 'Search', href: '/search' },
         ],
       },
       {
@@ -38,13 +52,14 @@ export const globalContent = {
         links: [
           { label: 'About', href: '/about' },
           { label: 'Contact', href: '/contact' },
+          { label: 'Notes', href: '/comments' },
         ],
       },
     ],
-    bottomNote: 'Built for clean discovery and connected publishing.',
+    bottomNote: 'Made for clear browsing and connected publishing.',
   },
   commonLabels: {
-    readMore: 'Read more',
+    readMore: 'Read the entry',
     viewAll: 'View all',
     explore: 'Explore',
     latest: 'Latest',

@@ -2,13 +2,13 @@ import type { CSSProperties } from 'react'
 import type { TaskKey } from '@/lib/site-config'
 
 /*
-  Yelp-style task surfaces.
+  Task surfaces — Grantrimbi "warm editorial".
 
-  Every task (archive + detail) now shares one cohesive premium identity:
-  clean white surfaces, the signature Yelp red accent, hairline gray borders
-  and a single crisp sans-serif — exactly like Yelp. Per-task copy (kicker /
-  note) still varies so each section keeps a little voice, but the visual
-  language is unified. Tokens are delivered via CSS variables (`--tk-*`).
+  Every task archive and detail page shares one cohesive identity: paper-white
+  surfaces, warm sand panels, espresso ink text and a single terracotta accent,
+  with a modern serif display face. Only the voice tokens (kicker / note) and a
+  small tint shift vary per task, so Classifieds and Profiles each keep a little
+  character without breaking the visual system. Tokens ship as `--tk-*` vars.
 */
 
 export type TaskTheme = {
@@ -32,34 +32,45 @@ export type TaskTheme = {
   radius: string
 }
 
-const YELP_FONT = "'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
+const DISPLAY = "'Fraunces', 'Newsreader', ui-serif, Georgia, serif"
+const BODY = "'DM Sans', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
 
-// Shared Yelp palette — every task inherits this; only kicker/note differ.
 const base = {
   dark: false,
-  fontDisplay: YELP_FONT,
-  fontBody: YELP_FONT,
+  fontDisplay: DISPLAY,
+  fontBody: BODY,
   bg: '#ffffff',
   surface: '#ffffff',
-  raised: '#f7f7f7',
-  text: '#1a1a1a',
-  muted: '#6b6b6b',
-  line: '#e6e6e6',
-  accent: '#d32323',
-  accentSoft: '#fdecec',
+  raised: '#f6f2ec',
+  text: '#201a16',
+  muted: '#6e635b',
+  line: '#e7e0d8',
+  accent: '#b75c2c',
+  accentSoft: '#fbede3',
   onAccent: '#ffffff',
-  glow: 'rgba(211,35,35,0.06)',
-  radius: '0.75rem',
+  glow: 'rgba(183,92,44,0.10)',
+  radius: '1.35rem',
 } satisfies Omit<TaskTheme, 'kicker' | 'note'>
 
 export const taskThemes: Record<TaskKey, TaskTheme> = {
-  article: { ...base, kicker: 'Articles', note: 'In-depth reads, guides and stories worth your time.' },
-  listing: { ...base, kicker: 'Businesses', note: 'Find, compare and connect with local businesses.' },
-  classified: { ...base, kicker: 'Marketplace', note: 'Fresh offers and listings, ready to act on.' },
-  image: { ...base, kicker: 'Photos', note: 'A visual feed of standout images and galleries.' },
-  sbm: { ...base, kicker: 'Bookmarks', note: 'Curated resources and links worth saving.' },
-  pdf: { ...base, kicker: 'Documents', note: 'Downloadable guides, reports and references.' },
-  profile: { ...base, kicker: 'People', note: 'Discover creators, businesses and profiles.' },
+  article: { ...base, kicker: 'Reading room', note: 'Considered writing, guides and long-form pieces worth the time.' },
+  listing: { ...base, kicker: 'The directory', note: 'Places, services and spaces, presented with the detail they deserve.' },
+  classified: {
+    ...base,
+    raised: '#f6f2ec',
+    kicker: 'The marketplace',
+    note: 'Current offers and announcements, laid out to be read at a glance.',
+  },
+  image: { ...base, raised: '#edf1f6', kicker: 'The gallery', note: 'Photographs and visual sets, given room to breathe.' },
+  sbm: { ...base, kicker: 'The shelf', note: 'Saved references and collections, kept tidy and easy to return to.' },
+  pdf: { ...base, kicker: 'The archive', note: 'Documents, guides and papers available to read or download.' },
+  profile: {
+    ...base,
+    raised: '#edf1f6',
+    glow: 'rgba(120,140,170,0.14)',
+    kicker: 'The directory of people',
+    note: 'Makers, businesses and contributors, introduced properly.',
+  },
 }
 
 export function getTaskTheme(task: TaskKey): TaskTheme {

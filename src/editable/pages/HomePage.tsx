@@ -39,34 +39,36 @@ export default async function HomePage() {
   return (
     <EditableSiteShell>
       <main>
-      <SchemaJsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: SITE_CONFIG.name,
-          url: baseUrl,
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: `${baseUrl}/search?q={search_term_string}`,
-            'query-input': 'required name=search_term_string',
-          },
-        }}
-      />
-      <EditableHomeHero primaryTask={primaryTask} primaryRoute={primaryRoute} posts={primaryPosts} timeSections={timeSections} />
-      <div className="mx-auto max-w-6xl px-4 py-6">
-  <Ads slot="header" showLabel eager className="mx-auto w-full" />
-</div>
+        <SchemaJsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: SITE_CONFIG.name,
+            url: baseUrl,
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${baseUrl}/search?q={search_term_string}`,
+              'query-input': 'required name=search_term_string',
+            },
+          }}
+        />
 
-      <EditableStoryRail primaryTask={primaryTask} primaryRoute={primaryRoute} posts={primaryPosts} timeSections={timeSections} />
-      <EditableMagazineSplit primaryTask={primaryTask} primaryRoute={primaryRoute} posts={primaryPosts} timeSections={timeSections} />
+        <EditableHomeHero primaryTask={primaryTask} primaryRoute={primaryRoute} posts={primaryPosts} timeSections={timeSections} />
 
-      <EditableTimeCollections primaryTask={primaryTask} primaryRoute={primaryRoute} posts={primaryPosts} timeSections={timeSections} />
-      <div className="mx-auto max-w-6xl px-4 py-6">
-  <Ads slot="sidebar" showLabel eager className="mx-auto w-full" />
-</div>
-      <EditableHomeCta />
+        <div className="mx-auto w-full max-w-[var(--editable-container)] px-5 pt-10 sm:px-6 lg:px-8">
+          <Ads slot="header" showLabel eager className="mx-auto w-full" />
+        </div>
+
+        <EditableStoryRail primaryTask={primaryTask} primaryRoute={primaryRoute} posts={primaryPosts} timeSections={timeSections} />
+        <EditableMagazineSplit primaryTask={primaryTask} primaryRoute={primaryRoute} posts={primaryPosts} timeSections={timeSections} />
+        <EditableTimeCollections primaryTask={primaryTask} primaryRoute={primaryRoute} posts={primaryPosts} timeSections={timeSections} />
+
+        <div className="mx-auto w-full max-w-[var(--editable-container)] px-5 py-10 sm:px-6 lg:px-8">
+          <Ads slot="sidebar" showLabel eager className="mx-auto w-full" />
+        </div>
+
+        <EditableHomeCta primaryTask={primaryTask} primaryRoute={primaryRoute} posts={primaryPosts} timeSections={timeSections} />
       </main>
     </EditableSiteShell>
   )
 }
-
