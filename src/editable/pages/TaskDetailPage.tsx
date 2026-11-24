@@ -129,14 +129,6 @@ const mapSrcFor = (post: SitePost) => {
   return ''
 }
 
-const dateLabel = (post: SitePost) => {
-  const raw = post.publishedAt || post.createdAt || ''
-  if (!raw) return ''
-  const parsed = new Date(raw)
-  if (Number.isNaN(parsed.getTime())) return ''
-  return parsed.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-}
-
 export function TaskDetailView({ task, post, related, comments = [] }: { task: TaskKey; post: SitePost; related: SitePost[]; comments?: Array<{ id: string; name: string; comment: string; createdAt: string }> }) {
   return (
     <EditableSiteShell>
@@ -185,8 +177,7 @@ function Kicker({ task, children }: { task: TaskKey; children: React.ReactNode }
 }
 
 function MetaRow({ post, category, center = false }: { post: SitePost; category?: string; center?: boolean }) {
-  const published = dateLabel(post)
-  const items = [category, published, SITE_CONFIG.name].filter(Boolean) as string[]
+  const items = [category, SITE_CONFIG.name].filter(Boolean) as string[]
   if (!items.length) return null
   return (
     <div className={`mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px] text-[var(--tk-muted)] ${center ? 'justify-center' : ''}`}>
@@ -459,7 +450,6 @@ function ClassifiedDetail({ post, related }: { post: SitePost; related: SitePost
             <div className="mt-5 space-y-2.5">
               {condition ? <BadgeLine label="Condition" value={condition} /> : null}
               {location ? <BadgeLine label="Location" value={location} /> : null}
-              {dateLabel(post) ? <BadgeLine label="Posted" value={dateLabel(post)} /> : null}
             </div>
             <div className="mt-6 flex flex-wrap gap-2.5">
               {phone ? (
@@ -526,7 +516,6 @@ function ProfileDetail({ post, related }: { post: SitePost; related: SitePost[] 
                     <MapPin className="h-3.5 w-3.5" /> {location}
                   </span>
                 ) : null}
-                {dateLabel(post) ? <span>Joined {dateLabel(post)}</span> : null}
               </div>
             </div>
           </div>
